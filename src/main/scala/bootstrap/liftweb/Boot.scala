@@ -10,7 +10,6 @@ import sitemap._
 import Loc._
 import mapper._
 
-import code.model._
 import code.lib._
 
 
