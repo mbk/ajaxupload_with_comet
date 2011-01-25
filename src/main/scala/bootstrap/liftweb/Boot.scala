@@ -11,6 +11,7 @@ import Loc._
 import mapper._
 
 import code.model._
+import code.lib._
 
 
 /**
@@ -34,25 +35,30 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User)
-
+    //Schemifier.schemify(true, Schemifier.infoF _, User)
+	//Enhance some max sizes
+	LiftRules.maxMimeFileSize = 1173741824L
+	LiftRules.maxMimeSize = 1273741824L
     // where to search snippet
     LiftRules.addToPackages("code")
+	//Make sure we don't put stuff in memory for uploads
+	LiftRules.handleMimeFile = OnDiskFileParamHolder.apply
 
     // Build SiteMap
     def sitemap = SiteMap(
-      Menu.i("Home") / "index" >> User.AddUserMenusAfter, // the simple way to declare a menu
-
+      Menu.i("Home") / "index", // the simple way to declare a menu
+	  Menu("Dev test") / "devtest",
       // more complex because this menu allows anything in the
       // /static path to be visible
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")))
 
-    def sitemapMutators = User.sitemapMutator
+    //def sitemapMutators = User.sitemapMutator
 
+	LiftRules.dispatch.append(UploadManager.receiveUpload)
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
+    LiftRules.setSiteMap(sitemap)
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
@@ -66,7 +72,7 @@ class Boot {
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
     // What is the function to test if a user is logged in?
-    LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+    //LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
     // Use HTML5 for rendering
     LiftRules.htmlProperties.default.set((r: Req) =>

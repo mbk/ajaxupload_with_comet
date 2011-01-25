@@ -1,0 +1,13 @@
+<lift:surround with="default" at="content">
+<div id="upload_button">Upload</div> 
+<script type="text/javascript">
+	$(document).ready(function(){new AjaxUpload('upload_button', {action: 'upload'})});
+</script>
+
+<lift:comet type="Clock" name="Other">
+ <clock:main></clock:main> 
+</lift:comet>
+<head>
+<script type="text/javascript" src="scripts/ajaxupload.js"></script>	
+</head>
+</lift:surround>
