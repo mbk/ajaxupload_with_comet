@@ -1,13 +1,61 @@
 <lift:surround with="default" at="content">
-<div id="upload_button">Upload</div> 
-<script type="text/javascript">
-	$(document).ready(function(){new AjaxUpload('upload_button', {action: 'upload'})});
+<div id="upload-field">
+<form class="upload" action="upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" multiple>
+    <button>Upload</button>
+    <div>Uploading files</div>
+</form> 
+</div>
+<table class="upload_files"></table>
+<table class="download_files"></table>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+<script src="scripts/jquery.fileupload.js"></script>
+<script src="scripts/jquery.fileupload-ui.js"></script>
+<script>
+/*global $ */
+
+$(function () {
+    $('.upload').fileUploadUI({
+        uploadTable: $('.upload_files'),
+        downloadTable: $('.download_files'),
+        buildUploadRow: function (files, index) {
+            var file = files[index];
+            return $(
+                '<tr>' +
+                '<td>' + file.name + '<\/td>' +
+                '<td class="file_upload_progress"><div><\/div><\/td>' +
+                '<td class="file_upload_cancel">' +
+                '<div class="ui-state-default ui-corner-all ui-state-hover" title="Cancel">' +
+                '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
+                '<\/div>' +
+                '<\/td>' +
+                '<\/tr>'
+            );
+        },
+        buildDownloadRow: function (file) {
+            return $(
+                ''
+            );
+        }
+			
+    });
+});
 </script>
 
-<lift:comet type="Clock" name="Other">
- <clock:main></clock:main> 
-</lift:comet>
+
+
+
 <head>
-<script type="text/javascript" src="scripts/ajaxupload.js"></script>	
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" id="theme">
+	<link rel="stylesheet" href="scripts/jquery.fileupload-ui.css">
+	<style>
+	body {
+	  font-family: Verdana, Arial, sans-serif;
+	  font-size: 13px;
+	  margin: 0;
+	  padding: 20px;
+	}
+	</style>
 </head>
 </lift:surround>
