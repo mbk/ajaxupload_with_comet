@@ -9,7 +9,7 @@ import net.liftweb.util._
 import net.liftweb.actor._
 import net.liftweb.util.Helpers._
 import net.liftweb.http.js.JsCmds.{SetHtml}
-import net.liftweb.http.js.JE.Str
+import scala.xml._
 
 class Clock extends CometActor {
 	
@@ -21,7 +21,7 @@ class Clock extends CometActor {
 		
   override def lowPriority : PartialFunction[Any,Unit] = {
     case Message => {
-      partialUpdate(SetHtml("message", Str("updated: " + timeNow.toString)))
+      partialUpdate(SetHtml("message", Text("updated: " + timeNow.toString)))
       ActorPing.schedule(this, Message, 1000L)
     }
   }
