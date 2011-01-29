@@ -55,7 +55,7 @@ class Boot {
     //def sitemapMutators = User.sitemapMutator
 
 	LiftRules.dispatch.append(UploadManager.receiveUpload)
-	LiftRules.dispatch.append(UploadManager.progress)
+
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
     LiftRules.setSiteMap(sitemap)
