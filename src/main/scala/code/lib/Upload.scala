@@ -11,11 +11,9 @@ package code {
 		
 		object UploadManager {	
 			
-											
 			def receiveUpload: LiftRules.DispatchPF = { 
 			  case Req("upload" :: Nil, _, PostRequest) => () => {
-					val files = S.request.open_!.uploadedFiles
-					Console println(files)
+					//Do nothing
 					Full(new OkResponse)
 			  }
 			}

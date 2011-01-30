@@ -36,8 +36,8 @@ class Boot {
     // any ORM you want
     //Schemifier.schemify(true, Schemifier.infoF _, User)
 	//Enhance some max sizes
-	LiftRules.maxMimeFileSize = 1173741824L
-	LiftRules.maxMimeSize = 1273741824L
+	LiftRules.maxMimeFileSize = 11737418240L
+	LiftRules.maxMimeSize = 12737418240L
     // where to search snippet
     LiftRules.addToPackages("code")
 	//Make sure we don't put stuff in memory for uploads
@@ -55,7 +55,7 @@ class Boot {
     //def sitemapMutators = User.sitemapMutator
 
 	LiftRules.dispatch.append(UploadManager.receiveUpload)
-
+	
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
     LiftRules.setSiteMap(sitemap)
